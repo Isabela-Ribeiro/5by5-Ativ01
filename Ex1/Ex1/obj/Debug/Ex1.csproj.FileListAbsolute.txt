@@ -1,0 +1,7 @@
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\bin\Debug\Ex1.exe.config
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\bin\Debug\Ex1.exe
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\bin\Debug\Ex1.pdb
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\obj\Debug\Ex1.csprojAssemblyReference.cache
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\obj\Debug\Ex1.csproj.CoreCompileInputs.cache
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\obj\Debug\Ex1.exe
+C:\Users\Isabela Ribeiro\source\repos\Isabela-Ribeiro\5by5-Ativ01\Ex1\Ex1\obj\Debug\Ex1.pdb
