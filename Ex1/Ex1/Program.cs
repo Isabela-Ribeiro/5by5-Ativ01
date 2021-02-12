@@ -14,14 +14,14 @@ namespace Ex1
                                                 { "_", "_", "_" },
                                                 { "_", "_", "_" } };
             string jogador = "X";
-            
+
             Imprimir_Jogo(mat);
-            
-             while (Jogando(mat, jogador))
-             {
+
+            while (Jogando(mat, jogador))
+            {
                 jogador = TrocarJogador(jogador);
-                
-             };
+
+            };
 
             Console.WriteLine("ACABOU O JOGO REINICIA TUDO AI...");
             Console.ReadKey();
@@ -30,7 +30,7 @@ namespace Ex1
         {
             Console.Clear();
             Console.WriteLine("\t[0]\t[1]\t[2]");
-            for(int l=0;l<mat.GetLength(0);l++)
+            for (int l = 0; l < mat.GetLength(0); l++)
             {
                 Console.Write($"[{l}]");
                 for (int c = 0; c < mat.GetLength(1); c++)
@@ -42,46 +42,55 @@ namespace Ex1
         }
         static bool Verificar(string[,] mat, int[] jogada)
         {
-            if(mat[jogada[0],jogada[1]] != "_")
+            
+            if ((jogada[0] < 0 || jogada[0] > 2) || (jogada[1] < 0 || jogada[1] > 2))
             {
-                Console.WriteLine("Não pode jogar nessa posicao");
+                Console.WriteLine("Não existe essa posição");
+                Imprimir_Jogo(mat);
                 return false;
             }
-            else
+            else if (mat[jogada[0], jogada[1]] != "_")
             {
-                return true;
+                Console.WriteLine("Você não pode jogar nesta posição");
+                Imprimir_Jogo(mat);
+                return false;
             }
+            return true;
+           
         }
-        static bool Jogando(string[,] mat, string jogador)
+        static int[] Jogada(string[,] mat) 
         {
-            int[] jogada = new int[2];
-            try
+            int[] jogada = new int[2] { -1 , -1 };
+            do
             {
-                do
+                
+                try
                 {
                     Console.WriteLine("Informe a linha do 0 ao 2: ");
                     jogada[0] = int.Parse(Console.ReadLine());
                     Console.WriteLine("Informe a coluna do 0 ao 2: ");
                     jogada[1] = int.Parse(Console.ReadLine());
-                } while (jogada[0] > 2 || jogada[1] > 2 || !Verificar(mat, jogada));
-            }
-            catch (FormatException ex)
-            {
-                Console.Write("Digite apenas valores númericos");
-            }
-            catch(OverflowException ex)
-            {
-                Console.Write(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message, "Erro desconhecido!!");
-            }
-            
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine();
+                }
+               
+            } while (!Verificar(mat, jogada));
+           
+            return jogada;
+        }
+        static bool Jogando(string[,] mat, string jogador)
+        {
+            int[] jogada = Jogada(mat);
 
-            mat[jogada[0],jogada[1]] = jogador;
+            
+            mat[jogada[0], jogada[1]] = jogador;
+
             Imprimir_Jogo(mat);
+
             int status = VerificaStatus(mat);
+
             if (status > 0 && status < 3)
             {
                 Console.WriteLine($"O jogador {status} ganhou");
