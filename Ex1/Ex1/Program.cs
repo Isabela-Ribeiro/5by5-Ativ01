@@ -45,14 +45,14 @@ namespace Ex1
             
             if ((jogada[0] < 0 || jogada[0] > 2) || (jogada[1] < 0 || jogada[1] > 2))
             {
-                Console.WriteLine("Não existe essa posição");
                 Imprimir_Jogo(mat);
+                Console.WriteLine("Não existe essa posição");
                 return false;
             }
             else if (mat[jogada[0], jogada[1]] != "_")
             {
-                Console.WriteLine("Você não pode jogar nesta posição");
                 Imprimir_Jogo(mat);
+                Console.WriteLine("Você não pode jogar nesta posição");
                 return false;
             }
             return true;
