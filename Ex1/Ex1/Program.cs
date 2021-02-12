@@ -55,14 +55,29 @@ namespace Ex1
         static bool Jogando(string[,] mat, string jogador)
         {
             int[] jogada = new int[2];
-
-            do
+            try
             {
-                Console.WriteLine("Informe a linha ");
-                jogada[0] = int.Parse(Console.ReadLine());
-                Console.WriteLine("Informe a coluna ");
-                jogada[1] = int.Parse(Console.ReadLine());
-            } while ( jogada[0] > 2 || jogada[1] > 2 || !Verificar(mat, jogada));
+                do
+                {
+                    Console.WriteLine("Informe a linha do 0 ao 2: ");
+                    jogada[0] = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Informe a coluna do 0 ao 2: ");
+                    jogada[1] = int.Parse(Console.ReadLine());
+                } while (jogada[0] > 2 || jogada[1] > 2 || !Verificar(mat, jogada));
+            }
+            catch (FormatException ex)
+            {
+                Console.Write("Digite apenas valores númericos");
+            }
+            catch(OverflowException ex)
+            {
+                Console.Write(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message, "Erro desconhecido!!");
+            }
+            
 
             mat[jogada[0],jogada[1]] = jogador;
             Imprimir_Jogo(mat);
