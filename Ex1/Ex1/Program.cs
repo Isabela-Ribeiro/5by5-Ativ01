@@ -10,36 +10,39 @@ namespace Ex1
     {
         static void Main(string[] args)
         {
-            string[,] mat = new string[3, 3] { { "", "", "" }, { "X", "O", "X" }, { "O", "O", "X" } };
-            //string[,] jogadores = new string[2,2] { { "1", "x" }, { "2", "o" } };
-            string[] jogador = new string[2] { "X", "O"};
+            string[,] mat = new string[3, 3] { { "_", "_", "_" },
+                                                { "_", "_", "_" },
+                                                { "_", "_", "_" } };
+            string jogador = "X";
             
+            Imprimir_Jogo(mat);
+            
+             while (Jogando(mat, jogador))
+             {
+                jogador = TrocarJogador(jogador);
+                
+             };
 
-            while (true)
-            {
-                Imprimir_Jogo(mat);
-                Jogando(mat,jogador[0]);
-                VerificaStatus();
-                //Verificar(mat);
-            }
-            
+            Console.WriteLine("ACABOU O JOGO REINICIA TUDO AI...");
             Console.ReadKey();
         }
         static void Imprimir_Jogo(string[,] mat)
         {
             Console.Clear();
-            for(int l=0;l<mat.GetLength(1);l++)
+            Console.WriteLine("\t[0]\t[1]\t[2]");
+            for(int l=0;l<mat.GetLength(0);l++)
             {
-                for(int c = 0; c < mat.GetLength(0); c++)
+                Console.Write($"[{l}]");
+                for (int c = 0; c < mat.GetLength(1); c++)
                 {
-                    Console.Write(mat[l, c]);
+                    Console.Write("\t" + mat[l, c]);
                 }
                 Console.WriteLine();
             }
         }
         static bool Verificar(string[,] mat, int[] jogada)
         {
-            if(mat[jogada[0],jogada[1]] != "")
+            if(mat[jogada[0],jogada[1]] != "_")
             {
                 Console.WriteLine("Não pode jogar nessa posicao");
                 return false;
@@ -49,10 +52,9 @@ namespace Ex1
                 return true;
             }
         }
-        static void Jogando(string[,] mat, string jogador)
+        static bool Jogando(string[,] mat, string jogador)
         {
             int[] jogada = new int[2];
-
 
             do
             {
@@ -60,29 +62,106 @@ namespace Ex1
                 jogada[0] = int.Parse(Console.ReadLine());
                 Console.WriteLine("Informe a coluna ");
                 jogada[1] = int.Parse(Console.ReadLine());
-            } while (!Verificar(mat, jogada));
+            } while ( jogada[0] > 2 || jogada[1] > 2 || !Verificar(mat, jogada));
+
             mat[jogada[0],jogada[1]] = jogador;
             Imprimir_Jogo(mat);
-            jogador = TrocarJogador(jogador);
-            Jogando(mat, jogador);
-            //trocajgoador
-            
-        }
-        static void VerificaStatus(string[,]mat)
-        {
-            for (int l =0;l<mat.GetLength(0);l++)
+            int status = VerificaStatus(mat);
+            if (status > 0 && status < 3)
             {
-                for (int i = 0; i <mat.GetLength(1); i++)
-                {
+                Console.WriteLine($"O jogador {status} ganhou");
+                return false;
+            }
+            else if(status == 0){
+                Console.WriteLine("Deu velha");
+                return false;
+            }
+            
+            return true;
 
+        }
+        static int VerificaStatus(string[,]mat)
+        {
+            if((mat[0,0] == mat[1,1] && mat[0,0]== mat[2, 2]) && mat[0, 0] != "_")
+            {
+                if(mat[0, 0] == "X")
+                {
+                    return 1;
+                }
+                else
+                {                    
+                    return 2;
                 }
             }
+
+            if((mat[0,2] == mat[1,1] && mat[0,2] == mat[2, 0]) && mat[0,2] != "_")
+            {
+                if (mat[0, 2] == "X")
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+
+            for (int l = 0; l < mat.GetLength(0); l++)
+            {
+                if((mat[l,0] == mat[l,1] && mat[l, 0] == mat[l, 2]) && mat[l, 0] != "_")
+                {
+                    if (mat[l, 0] == "X")
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
+            }
+
+            for (int c = 0; c < mat.GetLength(0); c++)
+            {
+                if ((mat[0, c] == mat[1, c] && mat[0, c] == mat[2, c]) && mat[0, c] != "_")
+                {
+                    if (mat[0, c] == "X")
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
+            }
+
+            int cont=0;
+
+            for (int l = 0; l < mat.GetLength(0); l++)
+            {
+                for (int c = 0; c < mat.GetLength(1); c++)
+                {
+                    if(mat[l,c] != "_")
+                    {
+                        cont++;
+                    }
+                    
+                }
+            }
+
+            if(cont == 9)
+            {
+                return 0;
+            }
+
+            return 3;
         }
         static string TrocarJogador(string jogador)
         {
             if(jogador == "x" || jogador == "X")
             {
-                return "X";
+                return "O";
             }
             else
             {
