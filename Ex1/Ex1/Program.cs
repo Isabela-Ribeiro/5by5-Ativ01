@@ -10,8 +10,24 @@ namespace Ex1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("hello");
+            string[,] mat = new string[3, 3] { {"O", "O", "O" }, { "X", "O", "O" }, { "O", "O", "X" }} ;
+            Imprimir_Jogo(mat);
             Console.ReadKey();
+        }
+        static void Imprimir_Jogo(string[,] mat)
+        {
+            for (int l=0;l<mat.GetLength(1);l++)
+            {
+                for (int c = 0; c < mat.GetLength(0); c++)
+                {
+                    Console.Write(mat[l, c]);
+                }
+                Console.WriteLine();
+            }
+        }
+        static void Verificar(string[,] mat)
+        {
+
         }
     }
 }
