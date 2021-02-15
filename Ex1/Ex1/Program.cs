@@ -15,18 +15,27 @@ namespace Ex1
                                                 { "_", "_", "_" } };
             string jogador = "X";
 
-            Imprimir_Jogo(mat);
+            ImprimirJogo(mat);
 
-            while (Jogando(mat, jogador))
+            while (true)
             {
+                //capturar input do usuario;
+                //validar entrada do usuario;
+                //se valida ok ->
+                    //realizar jogada;
+                    //trocar de jogador;
+                //se não ok
+                    //voltar ao inicio;
+                
                 jogador = TrocarJogador(jogador);
+
 
             };
 
             Console.WriteLine("ACABOU O JOGO REINICIA TUDO AI...");
             Console.ReadKey();
         }
-        static void Imprimir_Jogo(string[,] mat)
+        static void ImprimirJogo(string[,] mat)
         {
             Console.Clear();
             Console.WriteLine("\t[0]\t[1]\t[2]");
@@ -42,42 +51,49 @@ namespace Ex1
         }
         static bool Verificar(string[,] mat, int[] jogada)
         {
-            
-            if ((jogada[0] < 0 || jogada[0] > 2) || (jogada[1] < 0 || jogada[1] > 2))
+            if (int.TryParse(x, out jogada[0]) && int.TryParse(y, out jogada[1]))
             {
-                Imprimir_Jogo(mat);
-                Console.WriteLine("Não existe essa posição");
-                return false;
+
+                if ((jogada[0] < 0 || jogada[0] > 2) || (jogada[1] < 0 || jogada[1] > 2))
+                {
+                    ImprimirJogo(mat);
+                    Console.WriteLine("Não existe essa posição");
+                    return false;
+                }
+                else if (mat[jogada[0], jogada[1]] != "_")
+                {
+                    ImprimirJogo(mat);
+                    Console.WriteLine("Você não pode jogar nesta posição");
+                    return false;
+                }
+                return true;
             }
-            else if (mat[jogada[0], jogada[1]] != "_")
-            {
-                Imprimir_Jogo(mat);
-                Console.WriteLine("Você não pode jogar nesta posição");
-                return false;
-            }
-            return true;
            
         }
         static int[] Jogada(string[,] mat) 
         {
-            int[] jogada = new int[2] { -1 , -1 };
-            do
-            {
-                
-                try
-                {
-                    Console.WriteLine("Informe a linha do 0 ao 2: ");
-                    jogada[0] = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Informe a coluna do 0 ao 2: ");
-                    jogada[1] = int.Parse(Console.ReadLine());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine();
-                }
-               
-            } while (!Verificar(mat, jogada));
+            int[] jogada = new int[2] { -1, -1 } ;
+            string x, y;
            
+            Console.WriteLine("Informe a linha do 0 ao 2: ");
+            x = Console.ReadLine();
+            Console.WriteLine("Informe a coluna do 0 ao 2: ");
+            y = Console.ReadLine();
+
+            if (int.TryParse(x, out jogada[0]) && int.TryParse(y, out jogada[1]))
+            {
+
+                if ((jogada[0] < 0 || jogada[0] > 2) || (jogada[1] < 0 || jogada[1] > 2))
+                {
+                    ImprimirJogo(mat);
+                    Console.WriteLine("Não existe essa posição");
+                }
+                else if (mat[jogada[0], jogada[1]] != "_")
+                {
+                    ImprimirJogo(mat);
+                    Console.WriteLine("Você não pode jogar nesta posição");
+                }
+            }
             return jogada;
         }
         static bool Jogando(string[,] mat, string jogador)
@@ -87,7 +103,7 @@ namespace Ex1
             
             mat[jogada[0], jogada[1]] = jogador;
 
-            Imprimir_Jogo(mat);
+            ImprimirJogo(mat);
 
             int status = VerificaStatus(mat);
 
